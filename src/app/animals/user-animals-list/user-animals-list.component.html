@@ -1,0 +1,11 @@
+<div class="container-xl">
+  <div class="info-container">
+    <p class="info-title">Welcome to animal portal</p>
+    <p class="info-description">Your animals</p>
+  </div>
+  <div class="row">
+    <div class="col-md-6" *ngFor="let i of animalsList$ | async">
+      <tin-animals-card [animal]="i"></tin-animals-card>
+    </div>
+  </div>
+</div>

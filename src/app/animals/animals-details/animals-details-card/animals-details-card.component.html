@@ -1,0 +1,13 @@
+<mat-card class="mt-2">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{animal.name | titlecase}}</mat-card-title>
+    <mat-card-subtitle>{{animal.type | titlecase}} Breed</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image  [src]="animal.image" alt="Photo of a Shiba Inu">
+  <mat-card-content class="mb-3 mt-3">
+    <p>
+      {{animal.description}}
+    </p>
+  </mat-card-content>
+</mat-card>

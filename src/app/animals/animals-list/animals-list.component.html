@@ -1,0 +1,12 @@
+<div class="container-xl ">
+  <div class="info-container">
+    <p class="info-title">Welcome to animal portal</p>
+    <p class="info-description">You can admire other people's pets here or add your own</p>
+  </div>
+  <div class="row">
+    <div class="col-md-6" *ngFor="let animal of animalsList$ | async">
+      <tin-animals-card [animal]="animal"></tin-animals-card>
+    </div>
+
+  </div>
+</div>

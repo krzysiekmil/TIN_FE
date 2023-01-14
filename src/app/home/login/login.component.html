@@ -1,0 +1,22 @@
+<div class="container-lg mt-3">
+  <div class="info-container">
+    <p class="info-title">Welcome to animal portal</p>
+    <p class="info-description">Log in to your account</p>
+  </div>
+  <form class="mt-2 row" [formGroup]="form" (submit)="submit()">
+    <mat-form-field class="row mt-3"  appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+    <mat-form-field class="row mt-3"   appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-button type="submit" color="primary" [disabled]="form.invalid">Save</button>
+  </form>
+
+</div>
+

@@ -1,0 +1,12 @@
+<div class="container-xl details-component">
+  <ng-container *ngIf="animal$ | async as animal; else loading">
+    <tin-animals-details-management *ngIf="animal.owner" (edit)="openEdit()" (delete)="openDelete()"></tin-animals-details-management>
+    <tin-animals-details-card [animal]="animal"></tin-animals-details-card>
+  </ng-container>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+
+
+</div>
+

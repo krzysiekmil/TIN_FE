@@ -1,0 +1,40 @@
+<div class="container-lg mt-3">
+  <div class="info-container">
+    <p class="info-title">Welcome to animal portal</p>
+    <p class="info-description">Add your pet :)</p>
+  </div>
+  <form class="mt-2 row" [formGroup]="form" (submit)="submit()">
+    <mat-form-field class="col-12 mt-3"  appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="col-12 mt-3"  appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput
+                formControlName="description"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field class="col-md-6 mt-3"  appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option  [value]="'DOG'">Dog</mat-option>
+          <mat-option  [value]="'CAT'">Cat</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-xl-12 col-6 mt-3"  appearance="outline">
+      <mat-label>Date of birth</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="col-md-12 col-6 mt-3">
+      <mat-checkbox formControlName="rules">Accept rules of services</mat-checkbox>
+    </div>
+    <button class="col-12 mt-3 submit-button" mat-raised-button type="submit" color="primary" [disabled]="form.invalid">Save</button>
+  </form>
+
+</div>
