@@ -1,0 +1,16 @@
+<mat-card class="mb-3">
+  <mat-card-header>
+    <mat-card-title>{{user.username}}</mat-card-title>
+    <mat-card-subtitle>{{user.firstName | titlecase}} {{user.lastName | titlecase}}
+      <div *ngIf="invitation" class="row d-flex align-items-center">
+        <div>You received invitation:</div>
+        <mat-chip-listbox  class="pt-3">
+          <mat-chip-option color="primary" selected (click)="acceptInvitationToFriends()">Accept</mat-chip-option>
+          <mat-chip-option color="warn" selected (click)="rejectInvitationToFriends()">Reject</mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+  </mat-card-content>
+</mat-card>

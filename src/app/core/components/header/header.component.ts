@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'tin-header',
@@ -9,7 +10,7 @@ import {AuthService} from "../../service/auth.service";
 export class HeaderComponent implements OnInit{
   isLogged = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
 
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit{
 
 
   public logOut(): void{
-    this.authService.logout()
+    this.authService.logout();
+    this.router.navigate(["/"]);
   }
 }

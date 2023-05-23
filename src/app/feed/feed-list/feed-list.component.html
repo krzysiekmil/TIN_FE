@@ -1,0 +1,19 @@
+
+<ng-container *ngIf="feed$ | async; else loadingSpinner">
+<cdk-virtual-scroll-viewport itemSize="900" (scrolledIndexChange)="nextBatch()" class="viewport">
+      <div *ngIf="!loading; else loadingSpinner" class="container-lg d-flex align-items-center flex-column">
+        <div *cdkVirtualFor="let feed of feeds" class="item">
+          <tin-feed-card [feed]="feed" (refresh)="refresh()"></tin-feed-card>
+        </div>
+      </div>
+  </cdk-virtual-scroll-viewport>
+</ng-container>
+
+<ng-template #loadingSpinner>
+  <div class="w-100 d-flex justify-content-center mt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<button mat-fab color="primary" class="fab-button" type="button" routerLink="/post/add">
+  <mat-icon>add</mat-icon>
+</button>

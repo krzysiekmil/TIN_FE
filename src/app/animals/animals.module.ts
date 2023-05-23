@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage, provideImgixLoader} from '@angular/common';
 
 import { AnimalsRoutingModule } from './animals-routing.module';
 import { AnimalsListComponent } from './animals-list/animals-list.component';
@@ -20,6 +20,9 @@ import { AnimalsDetailsManagementComponent } from './animals-details/animals-det
 import {MatCardModule} from "@angular/material/card";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { AnimalsDetailsCardComponent } from './animals-details/animals-details-card/animals-details-card.component';
+import {environment} from "../../environments/environment";
+import {NgxMatFileInputModule} from "@angular-material-components/file-input";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -46,6 +49,12 @@ import { AnimalsDetailsCardComponent } from './animals-details/animals-details-c
     MatSelectModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    NgOptimizedImage,
+    NgxMatFileInputModule,
+    MatTooltipModule,
+  ],
+  providers: [
+    provideImgixLoader(`${environment.files}/`)
   ]
 })
 export class AnimalsModule { }

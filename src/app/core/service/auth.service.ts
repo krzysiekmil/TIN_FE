@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
-import {LoginResponse} from "./login-response";
+import {LoginResponse} from "../model/login-response";
 import {MatDialog} from "@angular/material/dialog";
 import {HttpClient} from "@angular/common/http";
 import {UserRole} from "../../shared/UserRole";
@@ -34,6 +34,11 @@ export class AuthService {
       );
   }
 
+  public signUp(dto: object): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(environment.api + "/users", dto)
+
+  }
+
   public isTokenValid(): boolean {
     const token = AuthService.getToken();
     if (!token) {
@@ -42,9 +47,10 @@ export class AuthService {
 
     const isValid = !this.jwtHelper.isTokenExpired(token);
     this.isUserAuthenticated.next(isValid);
-    const {roles, sub} = decode(token) as any;
+    const {roles, sub, jti} = decode(token) as any;
     this.user.username = sub;
     this.user.role = roles;
+    this.user.id = jti;
 
     if (!isValid) {
       AuthService.removeToken();

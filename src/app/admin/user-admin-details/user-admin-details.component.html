@@ -1,0 +1,52 @@
+<div class="container-lg mt-3">
+  <form class="mt-2 row" [formGroup]="form" (submit)="submit()">
+    <mat-form-field class="col-6 mt-3"  appearance="outline">
+      <mat-label>Id</mat-label>
+      <input matInput formControlName="id" [disabled]="true">
+      <mat-error>Field is required</mat-error>
+    </mat-form-field>
+    <div class="row"></div>
+    <mat-form-field class="col-md-6 mt-3"  appearance="outline">
+      <mat-label>First name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error>Field is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-md-6 mt-3"  appearance="outline" >
+      <mat-label>Last name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error>Field is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-12 col-md-6 mt-3"  appearance="outline" >
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" email>
+      <mat-error>Field is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-12 col-md-6 mt-3"  appearance="outline">
+      <mat-label>Date of birth</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Select Category:</mat-label>
+      <mat-select formControlName="roles" multiple>
+
+        <mat-select-trigger>
+          <mat-chip-list>
+            <mat-chip *ngFor="let role of form.get('roles')?.value"
+                      [removable]="true" (removed)="onRolesRemoved(role)" color="accent" selected>
+              {{ role.name }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-select-trigger>
+
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{ role.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="col-12 mt-3 ms-2 me-4 submit-button" mat-raised-button type="submit" color="primary" [disabled]="form.invalid">Save</button>
+  </form>
+</div>

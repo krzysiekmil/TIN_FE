@@ -4,10 +4,13 @@
     <mat-card-title>{{animal.name | titlecase}}</mat-card-title>
     <mat-card-subtitle>{{animal.type | titlecase}} Breed</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image  [src]="animal.image" alt="Photo of a Shiba Inu">
+  <img mat-card-image *ngIf="!!animal.image; else placeholderImage" [ngSrc]="animal.image"  alt="Image" width="400" height="400">
   <mat-card-content class="mb-3 mt-3">
     <p>
       {{animal.description}}
     </p>
   </mat-card-content>
 </mat-card>
+<ng-template #placeholderImage>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+</ng-template>

@@ -1,0 +1,17 @@
+.viewport {
+  height: calc(100vh - 65px);
+  width: 100%;
+  margin: 1em;
+}
+
+.item {
+  min-height: 650px;
+  max-width: 650px;
+  margin-bottom: 1.5em;
+}
+
+.fab-button {
+  position: fixed;
+  bottom: 4em;
+  right: 2em;
+}

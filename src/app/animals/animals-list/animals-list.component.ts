@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {EMPTY, Observable, of} from "rxjs";
 import {AnimalsDto, AnimalsService} from "../animals.service";
 
 @Component({
@@ -8,7 +8,7 @@ import {AnimalsDto, AnimalsService} from "../animals.service";
   styleUrls: ['./animals-list.component.scss']
 })
 export class AnimalsListComponent implements OnInit{
-  public animalsList$: Observable<AnimalsDto[]> = of()
+  public animalsList$: Observable<AnimalsDto[]> = EMPTY
 
   constructor(private animalsService: AnimalsService) {
   }

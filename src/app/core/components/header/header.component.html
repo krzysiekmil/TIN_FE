@@ -2,25 +2,32 @@
   <span routerLink="">Tin Project</span>
   <span class="space"></span>
   <ng-container *ngIf="isLogged; else authorizedButton">
-    <button mat-button  routerLink="animals">List</button>
-    <button mat-button routerLink="animals/add">Add</button>
-    <button mat-button routerLink="animals/me">Your Animals</button>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button mat-button routerLink="feed">Feed</button>
+    <button mat-button [matMenuTriggerFor]="menuAnimal">Animals</button>
+    <button mat-button routerLink="event">Event</button>
+    <button mat-button routerLink="user">Friends</button>
+    <button mat-button routerLink="admin/users" *hasRole="['ROLE_ADMIN']">Admin</button>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="settings">
-        <mat-icon>settings</mat-icon>
-        <span>Settings</span>
-      </button>
-      <button mat-menu-item (click)="logOut()">
-        <mat-icon>logout</mat-icon>
-        <span>Log out</span>
-      </button>
-    </mat-menu>
+
   </ng-container>
 </mat-toolbar>
-
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="settings">
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </button>
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon>logout</mat-icon>
+    <span>Log out</span>
+  </button>
+</mat-menu>
+<mat-menu #menuAnimal="matMenu">
+  <button mat-menu-item routerLink="animals/add">Add</button>
+  <button mat-menu-item routerLink="animals">List</button>
+  <button mat-menu-item routerLink="animals/me">Your Animals</button>
+</mat-menu>
 
 <ng-template #authorizedButton>
   <button mat-button routerLink="login">Sign in</button>

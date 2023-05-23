@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { HomePageComponent } from './home-page/home-page.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
@@ -15,6 +15,10 @@ import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {SharedModule} from "../shared/shared.module";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { SettingsComponent } from './settings/settings.component';
+import {MatDividerModule} from "@angular/material/divider";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {NgxMatFileInputModule} from "@angular-material-components/file-input";
 
 
 
@@ -22,22 +26,27 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
   declarations: [
     HomePageComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    SettingsComponent
   ],
-  imports: [
-    MatSnackBarModule,
-    CommonModule,
-    MatGridListModule,
-    MatCardModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatMomentDateModule,
-    MatCheckboxModule,
-    SharedModule
-  ]
+    imports: [
+        MatSnackBarModule,
+        CommonModule,
+        MatGridListModule,
+        MatCardModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatMomentDateModule,
+        MatCheckboxModule,
+        SharedModule,
+        MatDividerModule,
+        MatTooltipModule,
+        NgOptimizedImage,
+        NgxMatFileInputModule
+    ]
 })
 export class HomeModule { }

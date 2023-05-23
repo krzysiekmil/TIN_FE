@@ -1,0 +1,58 @@
+<div class="container-lg mt-3">
+  <ng-container *ngIf="event$ | async as event; else loadingSpinner">
+
+    <mat-card *ngIf="event.owner" class="mb-3">
+      <mat-card-content>
+        <div>
+          <button mat-button color="primary" routerLink="edit" class="me-3">Edit</button>
+          <button mat-button color="warn" (click)="delete()">Delete</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mb-3">
+      <mat-card-header class="mb-3">
+        <mat-card-title>
+          <span>{{event.title}}</span>
+          <mat-card-subtitle>
+            <div class="row">
+              <span>{{event.startDateTime | date: 'medium' }} - {{event.endDateTime  | date: 'medium'}}</span>
+            </div>
+            <div class="row" [routerLink]="['/user', event.hostId]">
+              <span>Host: {{event.host}}</span>
+            </div>
+          </mat-card-subtitle>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{event.description}}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-chip-listbox class="p-3" [value]="eventMemberStatus"  (change)="changeEventMemberStatus($event)">
+        <mat-chip-option value="ACCEPTED" [selected]="eventMemberStatus == 'ACCEPTED'">Accept</mat-chip-option>
+        <mat-chip-option color="warn" value="REJECTED" [selected]="eventMemberStatus == 'REJECTED'">Reject</mat-chip-option>
+        <mat-chip-option value="INVITED" [selected]="eventMemberStatus == 'INVITED'">Invited</mat-chip-option>
+      </mat-chip-listbox>
+      <mat-card-content (click)="$event.preventDefault()">
+        <h3>Invited: {{event.members.length}}</h3>
+        <div>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let members of event.members" >
+              <mat-icon *ngIf="members.attendingStatus == 'ACCEPTED'" matListItemIcon color="primary">check</mat-icon>
+              <mat-icon *ngIf="members.attendingStatus == 'REJECTED'" matListItemIcon color="warn">close</mat-icon>
+              <mat-icon *ngIf="members.attendingStatus == 'INVITED'" matListItemIcon>remove</mat-icon>
+              <span>{{members.user}}</span>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+  <ng-template #loadingSpinner>
+    <div class="w-100 d-flex justify-content-center mt-5">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</div>

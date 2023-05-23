@@ -1,0 +1,42 @@
+<div class="container-lg mt-3">
+  <div class="form-border">
+    <form class="row" [formGroup]="form" (submit)="submit()">
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12 mt-2">
+        <mat-label>Content</mat-label>
+        <textarea matInput formControlName="content" maxlength="1024"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="6"
+        ></textarea>
+      </mat-form-field>
+      <ng-container *ngIf="image; then imageView; else fileInput"></ng-container>
+      <ng-template #imageView>
+        <img [ngSrc]="String(image)" class="post-image" height="100" width="250" matTooltip="Click to remove image" (click)="removeImage()"/>
+      </ng-template>
+      <ng-template #fileInput>
+        <mat-form-field appearance="outline">
+          <ngx-mat-file-input [formControl]="imageForm" ></ngx-mat-file-input>
+        </mat-form-field>
+      </ng-template>
+      <mat-form-field appearance="outline" class="row-cols-3">
+        <mat-label>Guest</mat-label>
+        <mat-select [multiple]="true" disabled>
+          <mat-option></mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="row-cols-3">
+        <mat-label>Animal</mat-label>
+        <mat-select [multiple]="true" disabled>
+          <mat-option></mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="container mw-100 justify-content-center container-fluid">
+        <button mat-raised-button color="primary" class="col-12 col-lg-4 " [disabled]="form.invalid" type="submit" >Save</button>
+      </div>
+    </form>
+  </div>
+</div>

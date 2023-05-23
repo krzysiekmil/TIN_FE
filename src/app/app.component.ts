@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as moment from "moment/moment";
 
 @Component({
   selector: 'tin-root',

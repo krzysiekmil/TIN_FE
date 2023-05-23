@@ -1,4 +1,5 @@
 import {Observable} from "rxjs";
+import {Page} from "./model/page";
 
 export interface CrudApiMethods<T> {
 
@@ -11,4 +12,9 @@ export interface CrudApiMethods<T> {
   getOne(id: number): Observable<T>
 
   getList(): Observable<T[]>
+}
+
+export interface PagingApiMethods<T> {
+
+  getPagingList(): Observable<Page<T>>;
 }

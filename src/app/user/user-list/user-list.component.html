@@ -1,0 +1,49 @@
+<div class="container-lg mt-4">
+  <ng-container *ngIf="invitations$ | async as invitations">
+    <mat-expansion-panel *ngIf="invitations.length">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          You have {{invitations.length}} invitations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <tin-user-card *ngFor="let user of invitations" [invitation]="true"
+                     [user]="user"
+                     (acceptInvitation)="acceptInvitationToFriends(user.id)"
+                     (rejectInvitation)="rejectInvitationToFriends(user.id)"
+      ></tin-user-card>
+    </mat-expansion-panel>
+    <mat-divider class="mb-3"></mat-divider>
+  </ng-container>
+  <div class="row">
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline" class="col-md-9 col-12 p-1">
+        <mat-label>Search query</mat-label>
+        <input matInput formControlName="query" placeholder="Find user by typing theirs name...">
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="col-md-3 col-12 p-1 search_button" type="submit">Search
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+  </div>
+  <mat-divider class="mb-3"></mat-divider>
+  <ng-container *ngIf="friends$ | async as friends; else emptyContent">
+    <div *ngIf="!fetchData; else loadingSpinner">
+      <ng-container *ngIf="friends.length; else emptyContent">
+        <tin-user-card *ngFor="let friend of friends"
+                       [user]="friend"
+                       [routerLink]="['/user', friend.id]"></tin-user-card>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+<ng-template #loadingSpinner>
+  <div class="w-100 d-flex justify-content-center mt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-template #emptyContent>
+  <div class="w-100 d-flex justify-content-center mt-5">
+    There is no content available
+  </div>
+</ng-template>
+

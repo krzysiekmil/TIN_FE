@@ -1,0 +1,54 @@
+<div class="container-lg mt-4">
+  <div class="row">
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field appearance="outline" class="col-md-3 col-12 p-1">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-md-3 col-12 p-1">
+        <input matInput [ngxMatDatetimePicker]="$any(StartPicker)" placeholder="Start Date" formControlName="startDateTime">
+        <mat-datepicker-toggle matSuffix [for]="$any(StartPicker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #StartPicker >
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-md-3 col-12 p-1">
+        <input matInput [ngxMatDatetimePicker]="$any(EndPicker)" placeholder="End Date" formControlName="endDateTime">
+        <mat-datepicker-toggle matSuffix [for]="$any(EndPicker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #EndPicker >
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="col-md-3 col-12 p-1 search_button" type="submit">Search
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+  </div>
+  <mat-divider class="mb-3"></mat-divider>
+    <ng-container *ngIf="event$ | async as eventPage; else emptyContent">
+      <div *ngIf="!fetchData; else loadingSpinner">
+      <ng-container *ngIf="!eventPage.empty; else emptyContent">
+        <tin-event-card *ngFor="let event of eventPage.content" [event]="event" [routerLink]="['/event', event.id]"></tin-event-card>
+        <mat-paginator #paginator
+                       class="demo-paginator"
+                       (page)="handlePageEvent($event)"
+                       [length]="eventPage.totalElements"
+                       [pageSize]="eventPage.numberOfElements"
+                       [pageIndex]="eventPage.pageable.pageNumber"
+                       aria-label="Select page">
+        </mat-paginator>
+      </ng-container>
+      </div>
+    </ng-container>
+</div>
+<button mat-fab color="primary" class="fab-button" type="button" routerLink="add">
+  <mat-icon>add</mat-icon>
+</button>
+<ng-template #loadingSpinner>
+  <div class="w-100 d-flex justify-content-center mt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-template #emptyContent>
+  <div class="w-100 d-flex justify-content-center mt-5">
+    There is no content available
+  </div>
+</ng-template>

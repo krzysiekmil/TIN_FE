@@ -1,0 +1,19 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title [routerLink]="['/user',post.authorId]">
+        {{post.author}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{post.content}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+      <div *ngFor="let comment of post.comments">
+        <mat-divider class="mb-2 mt-2"></mat-divider>
+        <div class="d-flex justify-content-between">
+          <span class="post_comment__author" [routerLink]="['/user',comment.authorId]">{{comment.author | titlecase}}</span>
+          <span class="post_comment__content">{{comment.content}}</span>
+        </div>
+      </div>
+  </mat-expansion-panel>
+</mat-accordion>

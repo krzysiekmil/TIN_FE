@@ -1,0 +1,28 @@
+.post-card__container{
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 4px;
+  padding: 1em;
+}
+
+mat-expansion-panel-header{
+  height: fit-content !important;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.post_comment__author{
+  font-weight: 500;
+  margin-right: 2em;
+}
+
+
+
+.post_comment__content{
+  color:rgba(0,0,0,.54);
+  font-weight: 500;
+}
+
+.mat-expansion-panel-body {
+  padding: 1em!important;
+}
+

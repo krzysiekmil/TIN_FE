@@ -8,6 +8,10 @@ import {CoreModule} from "./core/core.module";
 import {UserModule} from "./user/user.module";
 import {HomeModule} from "./home/home.module";
 import {SharedModule} from "./shared/shared.module";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateAdapter, MAT_DATE_LOCALE} from "@angular/material/core";
+import {IMAGE_LOADER, ImageLoaderConfig, provideImgixLoader} from "@angular/common";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -16,13 +20,20 @@ import {SharedModule} from "./shared/shared.module";
   imports: [
     CoreModule,
     SharedModule,
-    UserModule,
     HomeModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    {provide: MAT_DATE_LOCALE, useValue: 'pl'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    provideImgixLoader(`${environment.files}/`)
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

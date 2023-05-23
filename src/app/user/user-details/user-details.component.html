@@ -1,0 +1,84 @@
+<div class="container-lg mt-3">
+  <div class="row container-fluid justify-content-between">
+    <ng-container *ngIf="user$ | async as user; else loading">
+      <ng-container *hasRole="['ROLE_ADMIN']">
+        <mat-card>
+          <mat-card-content>
+            <div class="container-button">
+              <button mat-button color="primary" [routerLink]="['/','admin', 'users', user.id]">Edit</button>
+              <button mat-button color="warn" (click)="deleteUser(user.id)">Delete</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <mat-card *ngIf="!user.me" class="mt-3 mb-2">
+        <ng-container *ngIf="!user.friend; then invitationsButton;else removeFriendshipButton"></ng-container>
+        <ng-template #invitationsButton>
+          <ng-container [ngSwitch]="user.invitationStatus">
+            <button mat-button *ngSwitchCase="'INVITED'" class="pt-2 pb-2" disabled>Invitation has been send</button>
+            <div *ngSwitchCase="'INVITATION_RECEIVED'" class="d-flex align-items-center">
+              <div>You received invitation</div>
+              <mat-chip-listbox  class="p-3">
+                <mat-chip-option color="primary" selected (click)="acceptInvitationToFriends()">Accept</mat-chip-option>
+                <mat-chip-option color="warn" selected (click)="rejectInvitationToFriends()">Reject</mat-chip-option>
+              </mat-chip-listbox>
+            </div>
+
+            <button mat-button color="primary" *ngSwitchDefault (click)="addToFriend()">Invited to friends</button>
+          </ng-container>
+          <span></span>
+        </ng-template>
+        <ng-template #removeFriendshipButton>
+          <button mat-button color="warn" *ngIf="user.friend" (click)="removeFromFriend()">Remove from friends</button>
+        </ng-template>
+      </mat-card>
+      <mat-card class="mt-3 pb-3 col-12 col-md-6 user-info__container">
+        <mat-card-header>
+          <mat-card-title>
+            <div>{{user.username | titlecase}}</div>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <div>{{user.firstName | titlecase}} {{user.lastName | titlecase }}</div>
+            <div>{{user.dateOfBirth | date}}</div>
+            <div>{{user.email}}</div>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <div class="mt-3 col-12 col-md-5 pe-0 ps-0">
+        <mat-card *ngFor="let animal of user.animals" class="mb-3" [routerLink]="['/animals', animal.id]">
+          <mat-card-header>
+            <mat-card-title-group class="mb-3">
+              <ng-container *ngIf="animal.image; else placeholderImage">
+                <img mat-card-sm-image  [ngSrc]="animal.image" alt="Image" width="80" height="80"/>
+              </ng-container>
+              <mat-card-title>{{animal.name | titlecase}}</mat-card-title>
+              <mat-card-subtitle>{{animal.dateOfBirth | date}}</mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+        </mat-card>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="post$ | async as posts; else loading">
+      <ng-container *ngIf="posts.size > 0; else noPost">
+        <mat-divider class="mt-2 mb-2"></mat-divider>
+        <tin-post-card [post]="post" *ngFor="let post of posts.content" class="pt-1 ps-0 pe-0"></tin-post-card>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #noPost>
+  <mat-card>
+    <mat-card-content>There is no post related with that user</mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
+
+<ng-template #placeholderImage>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" width="80" height="80">
+</ng-template>

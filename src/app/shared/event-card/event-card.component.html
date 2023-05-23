@@ -1,0 +1,8 @@
+<mat-card class="mb-3">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>{{event?.title}}</mat-card-title>
+      <mat-card-subtitle>{{event?.startDateTime | date}} - {{event?.endDateTime | date}} {{event?.members?.length}} Invited</mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+</mat-card>
